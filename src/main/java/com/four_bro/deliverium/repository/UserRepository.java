@@ -5,5 +5,5 @@ import com.four_bro.deliverium.model.*;;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel,Integer> {
-    
+    UserModel findByUsernameAndPassword(String username, String password);
 }

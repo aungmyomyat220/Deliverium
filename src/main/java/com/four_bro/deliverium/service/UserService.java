@@ -16,7 +16,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    public List<UserModel> login(Map<String, Object> param){
+    public boolean login(String username,String password){
+        UserModel user = userRepo.findByUsernameAndPassword(username, password);
+        return user != null;
+    }
+
+    public List<UserModel> getAllUsers(){
         return userRepo.findAll();
     }
 }

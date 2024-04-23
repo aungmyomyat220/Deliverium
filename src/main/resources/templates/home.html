@@ -1,26 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-                <th>Email</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="user : ${users}">
-				<td th:text="${user.id}">Id</td>
-				<td th:text="${user.username}">Name</td>
-                <td th:text="${user.email}">Email</td>
-			</tr>
-		</tbody>
-	</table>
+    <div>
+        <span>Hello</span>
+        <span th:text="${adminName}"></span>
+    </div>
 </body>
 </html>

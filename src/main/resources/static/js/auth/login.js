@@ -1,16 +1,14 @@
 $(document).ready(function(){
     $('#loginForm').submit(function(event){
-        event.preventDefault(); // Prevent default form submission
-        let username = $('#username').val(); // Get username input value
-        let password = $('#password').val(); // Get password input value
+        event.preventDefault();
+        let username = $('#username').val();
+        let password = $('#password').val();
         
-        // Construct the request body
         let requestBody = {
             username: username,
             password: password
         };
         
-        // Send POST request using fetch
         fetch('/login', {
             method: 'POST',
             headers: {
@@ -22,17 +20,17 @@ $(document).ready(function(){
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            location.href = 'home'
+            return response.json();
         })
         .then(data => {
-            // Handle successful response
-            console.log('Login successful:', data);
-            // Redirect or perform further actions based on the response
+            if(data === true) {
+                location.href = 'home';
+            } else {
+                console.error('Login failed:', data);
+            }
         })
         .catch(error => {
-            // Handle error
             console.error('Login error:', error);
-            // Display an error message or perform appropriate action
         });
     });
 });

@@ -18,6 +18,9 @@ public class UserService {
 
     public boolean login(String username,String password){
         UserModel user = userRepo.findByUsernameAndPassword(username, password);
+        if(user == null){
+            return false;
+        }
         return user != null;
     }
 

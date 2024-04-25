@@ -58,3 +58,15 @@ function showTooltip() {
 tooltip_elements.forEach((elem) => {
   elem.addEventListener("mouseover", showTooltip);
 });
+
+$('.log-out').click(function() {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to logout?",
+        showCancelButton: true,
+        cancelButtonColor: "gray",
+        confirmButtonColor: "#3d5af1",
+        confirmButtonText: "logout"
+    });
+});
+

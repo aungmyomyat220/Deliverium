@@ -25,4 +25,9 @@ public class ProductController {
         model.addAttribute("res", res);
         return "product/list"; // Return the logical view name
     }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createProduct(Model model) {
+        return "product/create"; // Return the logical view name
+    }
 }

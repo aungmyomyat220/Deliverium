@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Lists</title>
+    <th:block th:insert="~{fragments/cdn-links :: cdnLinks}"></th:block>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Product List</h1>
+      <form action="/search" method="get" class="input-group rounded">
+        <input
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+        <button
+          type="submit"
+          class="input-group-text border-0"
+          id="search-addon"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col">Product Id</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">Product Type</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="product : ${res}">
+              <td
+                class="smallText text-start"
+                align="right"
+                style="white-space: nowrap"
+              >
+                <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+              </td>
+              <td
+                class="smallText text-start"
+                align="right"
+                style="white-space: nowrap"
+              >
+                <a href="#"><i class="fa fa-edit" aria-hidden="true"></i></a>
+              </td>
+              <td
+                class="smallText text-start"
+                align="right"
+                style="white-space: nowrap"
+              >
+                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </td>
+              <th scope="row" th:text="${product.id}">Product ID</th>
+              <td th:text="${product.productName}">Product Name</td>
+              <td th:text="${product.productType}">Product Type</td>
+              <td th:text="${product.price}">Price</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

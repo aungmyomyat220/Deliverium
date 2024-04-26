@@ -70,13 +70,3 @@ $('.log-out').click(function() {
     });
 });
 
-$(document).ready(function() {
-  // Handle click events on sidebar menu items
-  $('#sidebar a').click(function(e) {
-    e.preventDefault();
-    var pageUrl = $(this).attr('href');
-    // Load the content of the clicked page into the main-content area
-    $("main").load(pageUrl);
-  });
-});
-

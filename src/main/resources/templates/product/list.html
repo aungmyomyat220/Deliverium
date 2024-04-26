@@ -1,77 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Lists</title>
-    <th:block th:insert="~{fragments/cdn-links :: cdnLinks}"></th:block>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Product List</h1>
-      <form action="/search" method="get" class="input-group rounded">
-        <div class="w-50" id="create">
-          <input
-            type="search"
-            class="form-control rounded w-75"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="search-addon"
-          />
-          <a
-            href="/product/create"
-            class="input-group-text border-0 mt-3 mb-3 bg-primary w-25 text-decoration-none"
-          >
-            Create
-          </a>
-        </div>
+<html xmlns:th="http://www.thymeleaf.org">
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Product Id</th>
-              <th scope="col">Product Name</th>
-              <th scope="col">Product Type</th>
-              <th scope="col">Price</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="product : ${res}">
-              <th scope="row" th:text="${product.id}">Product ID</th>
-              <td th:text="${product.productName}">Product Name</td>
-              <td th:text="${product.productType}">Product Type</td>
-              <td th:text="${product.price}">Price</td>
-              <td
-                class="smallText text-start"
-                align="right"
-                style="white-space: nowrap"
-              >
-                <a href="#"><i class="fa fa-edit" aria-hidden="true"></i></a>
-              </td>
-              <td
-                class="smallText text-start"
-                align="right"
-                style="white-space: nowrap"
-              >
-                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-    </div>
-  </body>
-  <script>
-    $(document).ready(function () {
-      // Handle click events on sidebar menu items
-      $("#create a").click(function (e) {
-        e.preventDefault();
-        var pageUrl = $(this).attr("href");
-        // Load the content of the clicked page into the main-content area
-        $("main").load(pageUrl);
-      });
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <th:block th:insert="~{fragments/cdn-links :: cdnLinks}"></th:block>
+</head>
+
+<body>
+  <div th:replace="~{fragments/cdn-links.html :: body}"></div>
+  <div class="p-4">
+    <h1>Product List</h1>
+    <form action="/search" method="get" class="input-group rounded">
+      <div class="w-50" id="create">
+        <input type="search" class="form-control rounded w-75" placeholder="Search" aria-label="Search"
+          aria-describedby="search-addon" />
+        <a href="/product/create" class="input-group-text border-0 mt-3 mb-3 bg-primary w-25 text-decoration-none">
+          Create
+        </a>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Type</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="product : ${res}">
+            <th scope="row" th:text="${product.id}">Product ID</th>
+            <td th:text="${product.productName}">Product Name</td>
+            <td th:text="${product.productType}">Product Type</td>
+            <td th:text="${product.price}">Price</td>
+            <td class="smallText text-start" align="right" style="white-space: nowrap">
+              <a href="#"><i class="fa fa-edit" aria-hidden="true"></i></a>
+            </td>
+            <td class="smallText text-start" align="right" style="white-space: nowrap">
+              <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</body>
+<script>
+  $(document).ready(function () {
+    // Handle click events on sidebar menu items
+    $("#create a").click(function (e) {
+      e.preventDefault();
+      var pageUrl = $(this).attr("href");
+      // Load the content of the clicked page into the main-content area
+      $("main").load(pageUrl);
     });
-  </script>
+  });
+</script>
+
 </html>

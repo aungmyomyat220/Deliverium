@@ -214,7 +214,6 @@ nav:hover .shrink-btn,
   height: 53px;
   background-color: var(--main-color-dark);
   border-radius: 10px;
-  position: absolute;
   top: 2.5px;
   left: 0;
   transition: top 0.3s;

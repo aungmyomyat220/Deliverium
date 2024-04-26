@@ -42,7 +42,7 @@ $(document).ready(function(){
         })
         .then(data => {
             if(data) {
-                location.href = 'home';
+                location.href = 'dashboard';
             } else if(!data) {
                 Swal.fire({
                     title: 'Login Failed',

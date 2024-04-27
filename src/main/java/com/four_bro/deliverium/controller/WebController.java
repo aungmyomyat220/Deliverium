@@ -35,4 +35,31 @@ public class WebController {
     }
     return "auth/login";
   }
+
+  @GetMapping("/product/productlist")
+  public String allProducts(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
+      session.getAttribute("AUTH_CHECK");
+      String userName = (String) session.getAttribute("USER_NAME");
+      model.addAttribute("activeTab", "products");
+      model.addAttribute("adminName", userName);
+      return "product/list";
+    }
+    return "auth/login";
+  }
+
+  @GetMapping("/product/create")
+  public String createProduct(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
+      session.getAttribute("AUTH_CHECK");
+      String userName = (String) session.getAttribute("USER_NAME");
+      model.addAttribute("activeTab", "products");
+      model.addAttribute("adminName", userName);
+      return "product/create"; // Return the logical view name
+    }
+    return "auth/login";
+  }
+
 }

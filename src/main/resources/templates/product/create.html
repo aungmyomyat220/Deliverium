@@ -7,28 +7,38 @@
     <th:block th:insert="~{fragments/cdn-links :: cdnLinks}"></th:block>
   </head>
   <body>
-    <div class="container">
-      <h1>Product Create</h1>
-      <form>
-        <div class="form-group">
-          <label for="formGroupExampleInput">Example label</label>
-          <input
-            type="text"
-            class="form-control"
-            id="formGroupExampleInput"
-            placeholder="Example input"
-          />
-        </div>
-        <div class="form-group">
-          <label for="formGroupExampleInput2">Another label</label>
-          <input
-            type="text"
-            class="form-control"
-            id="formGroupExampleInput2"
-            placeholder="Another input"
-          />
+    <div th:replace="~{fragments/cdn-links.html :: body}"></div>
+    <div class="wrapper container">
+      <form id="product_create">
+        <div id="wizard" class="w-50">
+          <!-- SECTION 1 -->
+          <h1>Product Create</h1>
+          <section>
+            <div class="form-row mb-3">
+              <input type="text" name ="productName" class="form-control" placeholder="Name" />
+            </div>
+            <div class="form-row mb-3">
+              <input type="text" name="price" class="form-control" placeholder="Price" />
+            </div>
+            <div class="form-row mb-3">
+              <input
+                type="text" name="productType"
+                class="form-control"
+                placeholder="Product Type"
+              />
+            </div>
+            <div class="form-row mb-3 w-25">
+              <button
+                type="submit"
+                class="form-control bg-primary"
+              />Create
+            </button>
+            </div>
+          </section>
         </div>
       </form>
     </div>
+    
   </body>
+
 </html>

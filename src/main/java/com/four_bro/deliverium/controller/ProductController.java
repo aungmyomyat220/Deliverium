@@ -30,9 +30,9 @@ public class ProductController {
       model.addAttribute("res", res);
       model.addAttribute("activeTab", "products");
       model.addAttribute("adminName", userName);
+      return "product/list";
     }
-
-    return "product/list";
+    return "auth/login";
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.GET)

@@ -8,6 +8,9 @@
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+  <!-- chart -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
   <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
@@ -20,8 +23,10 @@
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <script type="module" src="/js/auth/login.js"></script>
   <script type="module" src="/js/home.js"></script>
+  <script type="module" src="/js/dashboard.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/login.css" />
   <link rel="stylesheet" type="text/css" href="/css/home.css" />
+  <link rel="stylesheet" type="text/css" href="/css/dashboard.css" />
 </head>
 
 <body>
@@ -68,8 +73,8 @@
             <span class="link hide">Product</span>
           </a>
         </li>
-        <li class="tooltip-element" data-tooltip="3">
-          <a href="/orders" class="addLocalStorage" data-active="3">
+        <li class="tooltip-element" id="orders" data-tooltip="3">
+          <a href="/orders/all_orders" class="addLocalStorage" data-active="3">
             <div class="icon">
               <i class="bx bxl-shopify"></i>
               <i class="bx bxl-shopify"></i>
@@ -119,6 +124,8 @@
       $("#users").addClass("active-tab")
     }else if(activeTab === "products"){
       $("#product").addClass("active-tab")
+    }else if(activeTab === "orders"){
+      $("#orders").addClass("active-tab")
     }
   </script>
 </body>

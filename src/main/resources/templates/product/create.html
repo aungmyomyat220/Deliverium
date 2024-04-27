@@ -15,30 +15,44 @@
           <h1>Product Create</h1>
           <section>
             <div class="form-row mb-3">
-              <input type="text" name ="productName" class="form-control" placeholder="Name" />
-            </div>
-            <div class="form-row mb-3">
-              <input type="text" name="price" class="form-control" placeholder="Price" />
+              <input
+                type="text"
+                name="productName"
+                class="form-control"
+                placeholder="Name"
+              />
             </div>
             <div class="form-row mb-3">
               <input
-                type="text" name="productType"
+                type="text"
+                name="price"
+                class="form-control"
+                placeholder="Price"
+              />
+            </div>
+            <div class="form-row mb-3">
+              <input
+                type="text"
+                name="productType"
                 class="form-control"
                 placeholder="Product Type"
               />
             </div>
-            <div class="form-row mb-3 w-25">
-              <button
-                type="submit"
-                class="form-control bg-primary"
-              />Create
-            </button>
+            <div class="form-row mb-3 w-25 d-inline">
+              <button type="submit" class="btn btn-primary btn-sm">
+                Create
+              </button>
+              <a
+                href="/product/productlist"
+                type="button"
+                class="btn btn-secondary btn-sm"
+              >
+                Back
+              </a>
             </div>
           </section>
         </div>
       </form>
     </div>
-    
   </body>
-
 </html>

@@ -17,4 +17,5 @@ public class ProductModel {
     private String productName;
     private String price;
     private String productType;
+    private int deleteFlg;
 }

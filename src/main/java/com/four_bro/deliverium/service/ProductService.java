@@ -3,7 +3,6 @@ package com.four_bro.deliverium.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.four_bro.deliverium.model.ProductModel;
@@ -19,7 +18,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<ProductModel> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findByDeleteFlg(0);
     }
 
     public String saveProduct(@RequestBody ProductModel request) {

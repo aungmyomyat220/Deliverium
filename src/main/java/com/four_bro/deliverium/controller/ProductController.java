@@ -6,13 +6,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -33,6 +35,26 @@ public class ProductController {
     @PostMapping(value = "/create_data")
     public String createProductData(@RequestBody ProductModel request) {
         String msg = productService.saveProduct(request);
+        return msg;
+    }
+
+    @PostMapping(value = "/get_data")
+    public Optional<ProductModel> editProductData(@RequestBody Map<String, Object> param) {
+
+        Optional<ProductModel> data = productService.getAllProductsById((Integer) param.get("productId"));
+        log.info("dta" + data);
+        return data;
+    }
+
+    @PostMapping(value = "/edit_data")
+    public String editProductData(@RequestBody ProductModel request) {
+        String msg = productService.editProduct(request);
+        return msg;
+    }
+
+    @PostMapping(value = "/delete_data")
+    public String deleteProductData(@RequestBody ProductModel request) {
+        String msg = productService.deleteProduct(request);
         return msg;
     }
 }

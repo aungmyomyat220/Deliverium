@@ -8,8 +8,8 @@
   </head>
   <body>
     <div th:replace="~{fragments/cdn-links.html :: body}"></div>
-    <div class="wrapper container">
-      <form id="product_create">
+    <div class="wrapper p-4 container-fluid">
+      <form id="product_create" class="productForm">
         <div id="wizard" class="w-50">
           <!-- SECTION 1 -->
           <h1>Product Create</h1>
@@ -51,8 +51,44 @@
               </a>
             </div>
           </section>
+          <input
+            type="hidden"
+            name="id"
+            class="form-control"
+            th:value="${productId}"
+          />
         </div>
       </form>
     </div>
   </body>
+  <script>
+    $(document).ready(function () {
+      let id = "[[${productId}]]";
+      let mode = "[[${mode}]]";
+      if (mode == "edit") {
+        $('.productForm').attr('id', 'product_edit');
+        $('h1').text("Product Edit");
+        $('button[type="submit"]').text("Edit");
+      } else if (mode = "delete") {
+        $('.productForm').attr('id', 'product_delete');
+        $('h1').text("Product Delete");
+        $('button[type="submit"]').text("Delete");
+      }
+
+      $.ajax({
+        url: "/get_data",
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            productId: [[${productId}]],
+        }),
+        success: function(response) {
+            console.log(response);
+            $('input[name="productName"]').val(response.productName)
+            $('input[name="price"]').val(response.price)
+            $('input[name="productType"]').val(response.productType)
+        }
+    });
+    });
+  </script>
 </html>

@@ -54,18 +54,36 @@
             data: null,
             render: function (data, type, row) {
               // Use FontAwesome icon in the first column
-              return '<i class="fa fa-edit"></i>';
+              return (
+                '<i class="fa fa-edit edit-icon" data-id="' + row.id + '"></i>'
+              );
             },
           },
           {
             data: null,
             render: function (data, type, row) {
               // Use FontAwesome icon in the first column
-              return '<i class="fa fa-trash"></i>';
+              return (
+                '<i class="fa fa-trash delete-icon" data-id="' +
+                row.id +
+                '"></i>'
+              );
             },
           },
           // Add more column definitions as needed
         ],
+      });
+
+      // Handle click events on edit icons
+      $("#product_table").on("click", ".edit-icon", function () {
+        var id = $(this).data("id");
+        window.location.href = "/product/edit?id=" + id;
+      });
+
+      // Handle click events on delete icons
+      $("#product_table").on("click", ".delete-icon", function () {
+        var id = $(this).data("id");
+        window.location.href = "/product/delete?id=" + id;
       });
     });
   </script>

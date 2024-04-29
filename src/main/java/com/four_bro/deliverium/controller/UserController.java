@@ -30,10 +30,12 @@ public class UserController {
     return data;
   }
 
-  @PostMapping(value = "/ban_user")
-  public String banUsers(@RequestBody Map<String, Object> request) {
+  @PostMapping(value = "/change_status")
+  public String changeStatusOfUser(@RequestBody Map<String, Object> request) {
     Integer id = (Integer) request.get("id");
-    String data = userService.banUsers(Integer.valueOf(id));
+    Integer status = (Integer) request.get("status");
+    String data = userService.changeStatusOfUser(Integer.valueOf(id), Integer.valueOf(status));
     return data;
   }
+
 }

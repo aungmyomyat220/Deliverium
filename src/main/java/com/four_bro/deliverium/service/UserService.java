@@ -28,13 +28,13 @@ public class UserService {
         return userRepo.findByRole(1);
     }
 
-    public String banUsers(Integer id) {
+    public String changeStatusOfUser(Integer id, Integer status) {
         Optional<UserModel> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             UserModel userModel = optionalUser.get();
-            userModel.setStatus(0);
+            userModel.setStatus(status);
             userRepo.save(userModel);
-            return "Ban user successfully";
+            return status == 0 ? "Ban user successfully" : "Activate user successfully";
         } else {
             return "User not found";
         }

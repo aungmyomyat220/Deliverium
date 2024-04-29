@@ -65,11 +65,7 @@ public class WebController {
   }
 
   @GetMapping("/product/edit")
-  public String editProduct(
-    HttpServletRequest request,
-    Model model,
-    @RequestParam Integer id
-  ) {
+  public String editProduct(HttpServletRequest request, Model model, @RequestParam Integer id) {
     HttpSession session = request.getSession(false);
     if (session != null && session.getAttribute("AUTH_CHECK") != null) {
       session.getAttribute("AUTH_CHECK");
@@ -78,26 +74,6 @@ public class WebController {
       model.addAttribute("adminName", userName);
       model.addAttribute("productId", id);
       model.addAttribute("mode", "edit");
-      return "product/create"; // Return the logical view name
-    }
-    return "auth/login";
-  }
-
-  @GetMapping("/product/delete")
-  public String deleteProduct(
-    HttpServletRequest request,
-    Model model,
-    @RequestParam Integer id
-  ) {
-    log.info("test");
-    HttpSession session = request.getSession(false);
-    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
-      session.getAttribute("AUTH_CHECK");
-      String userName = (String) session.getAttribute("USER_NAME");
-      model.addAttribute("activeTab", "products");
-      model.addAttribute("adminName", userName);
-      model.addAttribute("productId", id);
-      model.addAttribute("mode", "delete");
       return "product/create"; // Return the logical view name
     }
     return "auth/login";

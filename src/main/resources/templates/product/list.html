@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Products</title>
     <th:block th:insert="~{fragments/cdn-links :: cdnLinks}"></th:block>
   </head>
 
@@ -38,53 +38,4 @@
       </form>
     </div>
   </body>
-  <script>
-    $(document).ready(function () {
-      $("#product_table").DataTable({
-        ajax: {
-          url: "/productlist",
-          dataSrc: "",
-        },
-        columns: [
-          { data: "id" },
-          { data: "productName" },
-          { data: "productType" },
-          { data: "price" },
-          {
-            data: null,
-            render: function (data, type, row) {
-              // Use FontAwesome icon in the first column
-              return (
-                '<i class="fa fa-edit edit-icon" data-id="' + row.id + '"></i>'
-              );
-            },
-          },
-          {
-            data: null,
-            render: function (data, type, row) {
-              // Use FontAwesome icon in the first column
-              return (
-                '<i class="fa fa-trash delete-icon" data-id="' +
-                row.id +
-                '"></i>'
-              );
-            },
-          },
-          // Add more column definitions as needed
-        ],
-      });
-
-      // Handle click events on edit icons
-      $("#product_table").on("click", ".edit-icon", function () {
-        var id = $(this).data("id");
-        window.location.href = "/product/edit?id=" + id;
-      });
-
-      // Handle click events on delete icons
-      $("#product_table").on("click", ".delete-icon", function () {
-        var id = $(this).data("id");
-        window.location.href = "/product/delete?id=" + id;
-      });
-    });
-  </script>
 </html>

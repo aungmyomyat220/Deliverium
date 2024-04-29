@@ -37,7 +37,7 @@ public class WebController {
     return "auth/login";
   }
 
-  @GetMapping("/product/productlist")
+  @GetMapping("/product")
   public String allProducts(HttpServletRequest request, Model model) {
     HttpSession session = request.getSession(false);
     if (session != null && session.getAttribute("AUTH_CHECK") != null) {
@@ -65,7 +65,11 @@ public class WebController {
   }
 
   @GetMapping("/product/edit")
-  public String editProduct(HttpServletRequest request, Model model, @RequestParam Integer id) {
+  public String editProduct(
+    HttpServletRequest request,
+    Model model,
+    @RequestParam Integer id
+  ) {
     HttpSession session = request.getSession(false);
     if (session != null && session.getAttribute("AUTH_CHECK") != null) {
       session.getAttribute("AUTH_CHECK");
@@ -80,7 +84,11 @@ public class WebController {
   }
 
   @GetMapping("/product/delete")
-  public String deleteProduct(HttpServletRequest request, Model model, @RequestParam Integer id) {
+  public String deleteProduct(
+    HttpServletRequest request,
+    Model model,
+    @RequestParam Integer id
+  ) {
     log.info("test");
     HttpSession session = request.getSession(false);
     if (session != null && session.getAttribute("AUTH_CHECK") != null) {
@@ -95,4 +103,29 @@ public class WebController {
     return "auth/login";
   }
 
+  @GetMapping("/orders")
+  public String order(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
+      session.getAttribute("AUTH_CHECK");
+      String userName = (String) session.getAttribute("USER_NAME");
+      model.addAttribute("activeTab", "orders");
+      model.addAttribute("adminName", userName);
+      return "orders/orders";
+    }
+    return "auth/login";
+  }
+
+  @GetMapping("/users")
+  public String users(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
+      session.getAttribute("AUTH_CHECK");
+      String userName = (String) session.getAttribute("USER_NAME");
+      model.addAttribute("activeTab", "users");
+      model.addAttribute("adminName", userName);
+      return "users/user";
+    }
+    return "auth/login";
+  }
 }

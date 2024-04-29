@@ -17,7 +17,7 @@ $(document).ready(function () {
         {
           data: "status",
           render: function (data, type, row) {
-            return data == 0 ? "Ban" : "Active";
+            return data == 0 ? '<i class="bi bi-slash-circle-fill text-danger"></i>' : '<i class="bi bi-check-circle-fill text-success"></i>';
           },
         },
         {

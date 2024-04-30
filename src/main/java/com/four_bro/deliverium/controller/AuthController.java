@@ -36,7 +36,11 @@ public class AuthController {
       HttpSession session = request.getSession();
       session.setAttribute("AUTH_CHECK", uuid);
       session.setAttribute("USER_NAME", username);
-      session.setAttribute("USER_ROLE", loginUser.getRole());
+      if (loginUser.getRole() == 0) {
+        session.setAttribute("USER_ROLE", "admin");
+      } else if (loginUser.getRole() == 1) {
+        session.setAttribute("USER_ROLE", "user");
+      }
       return loginUser;
     }
     return null;

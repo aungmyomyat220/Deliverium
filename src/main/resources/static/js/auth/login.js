@@ -42,8 +42,16 @@ $(document).ready(function(){
         })
         .then(data => {
             if(data) {
-                location.href = 'dashboard';
-            } else if(!data) {
+                Swal.fire({
+                    title: 'Login Success',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });           
+                setTimeout(function() {
+                    location.href = 'dashboard';
+                }, 2000);
+            }else if(!data) {
                 Swal.fire({
                     title: 'Login Failed',
                     text: 'Incorrect Username or Password',

@@ -5,7 +5,12 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id" },
+      {
+        data: "id",
+        render: function(data, type, row, meta) {
+          return meta.row + 1;
+        }
+      },
       { data: "username" },
       { data: "email" },
       {
@@ -74,7 +79,12 @@ $(document).ready(function () {
               status : status,
             }),
             success: function (response) {
-              alert(response);
+              Swal.fire({
+                title: 'Process Success',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000,
+            }); 
               $('#user_table').DataTable().ajax.reload();
             },
           });

@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
   // show product data into grid
   $("#product_table").DataTable({
     ajax: {
@@ -7,7 +6,12 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id" },
+      {
+        data: "id",
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
+        },
+      },
       { data: "productName" },
       { data: "productType" },
       { data: "price" },
@@ -23,9 +27,7 @@ $(document).ready(function () {
         data: null,
         render: function (data, type, row) {
           return (
-            '<i class="fa fa-trash delete-icon" data-id="' +
-            row.id +
-            '"></i>'
+            '<i class="fa fa-trash delete-icon" data-id="' + row.id + '"></i>'
           );
         },
       },
@@ -42,38 +44,40 @@ $(document).ready(function () {
   $("#product_table").on("click", ".delete-icon", function () {
     var id = $(this).data("id");
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'Do you want to delete?',
+      title: "Are you sure?",
+      text: "Do you want to delete?",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Delete'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
     }).then((result) => {
-        if (result.isConfirmed) {
-          $.ajax({
-            url: "/delete_product",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({
-              id: id,
-            }),
-            success: function (response) {
-              alert(response);
-              $('#product_table').DataTable().ajax.reload();
-            },
-          });
-        }
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/delete_product",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            id: id,
+          }),
+          success: function (response) {
+            Swal.fire({
+              title: "Process Success",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            $("#product_table").DataTable().ajax.reload();
+          },
+        });
+      }
     });
   });
 
-  // submit product form 
+  // submit product form
   $(".productForm").submit(function (e) {
-    e.preventDefault(); 
+    e.preventDefault();
     var formId = $(this).attr("id");
-    var url =
-      formId === "product_create"
-        ? "/create_product"
-        : "/edit_product";
+    var url = formId === "product_create" ? "/create_product" : "/edit_product";
 
     $.ajax({
       url: url,
@@ -86,10 +90,14 @@ $(document).ready(function () {
         productType: $('input[name="productType"]').val(),
       }),
       success: function (response) {
-        alert(response);
+        Swal.fire({
+          title: "Process Success",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        });
         $('input[type="text"]').val("");
       },
     });
   });
-
 });

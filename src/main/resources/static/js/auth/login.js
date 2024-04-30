@@ -42,6 +42,8 @@ $(document).ready(function(){
         })
         .then(data => {
             if(data) {
+                console.log(data.role);
+                console.log(typeof data.role);
                 Swal.fire({
                     title: 'Login Success',
                     icon: 'success',
@@ -49,7 +51,12 @@ $(document).ready(function(){
                     timer: 2000,
                 });           
                 setTimeout(function() {
-                    location.href = 'dashboard';
+                    if (data.role === 0) {
+                        location.href = 'dashboard';
+                    } else if(data.role === 1){
+                        location.href = 'user_home'
+                    }
+                    
                 }, 2000);
             }else if(!data) {
                 Swal.fire({

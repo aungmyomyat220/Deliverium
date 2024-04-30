@@ -1,5 +1,6 @@
 package com.four_bro.deliverium.controller;
 
+import com.four_bro.deliverium.model.UserModel;
 import com.four_bro.deliverium.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class AuthController {
   private UserService userService;
 
   @PostMapping("/login")
-  public boolean login(
+  public UserModel login(
     @RequestBody Map<String, Object> param,
     HttpServletRequest request,
     Model model
@@ -30,14 +30,16 @@ public class AuthController {
     String username = (String) param.get("username");
     String password = (String) param.get("password");
 
-    boolean isAuthenticated = userService.login(username, password);
-    if (isAuthenticated) {
+    UserModel loginUser = userService.login(username, password);
+    if (loginUser != null) {
       String uuid = UUID.randomUUID().toString();
       HttpSession session = request.getSession();
       session.setAttribute("AUTH_CHECK", uuid);
       session.setAttribute("USER_NAME", username);
+      session.setAttribute("USER_ROLE", loginUser.getRole());
+      return loginUser;
     }
-    return isAuthenticated;
+    return null;
   }
 
   @GetMapping("/logout")

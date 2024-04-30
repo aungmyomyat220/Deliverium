@@ -39,4 +39,11 @@ public class AuthController {
     }
     return isAuthenticated;
   }
+
+  @GetMapping("/logout")
+  public void logout(HttpServletRequest request) {
+    log.info("Work");
+    HttpSession session = request.getSession();
+    session.invalidate();
+  }
 }

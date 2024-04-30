@@ -61,7 +61,7 @@ $(document).ready(function () {
           }),
           success: function (response) {
             Swal.fire({
-              title: "Process Success",
+              title: "Product Deleted Succefully",
               icon: "success",
               showConfirmButton: false,
               timer: 2000,
@@ -78,6 +78,7 @@ $(document).ready(function () {
     e.preventDefault();
     var formId = $(this).attr("id");
     var url = formId === "product_create" ? "/create_product" : "/edit_product";
+    let alert_text = formId === "product_create" ? "Product Created Succefully" : "Product Updated Succefully";
 
     $.ajax({
       url: url,

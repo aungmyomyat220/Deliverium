@@ -41,10 +41,19 @@ public class ProductController {
   public Optional<ProductModel> editProductData(
     @RequestBody Map<String, Object> param
   ) {
-    Optional<ProductModel> data = productService.getAllProductsById(
-      (Integer) param.get("productId")
-    );
-    return data;
+    String productIdStr = (String) param.get("productId");
+    if (productIdStr == null) {
+      return Optional.empty();
+    }
+    try {
+      Integer productId = Integer.valueOf(productIdStr);
+      Optional<ProductModel> data = productService.getAllProductsById(
+        productId
+      );
+      return data;
+    } catch (NumberFormatException e) {
+      return Optional.empty();
+    }
   }
 
   @PostMapping(value = "/edit_product")

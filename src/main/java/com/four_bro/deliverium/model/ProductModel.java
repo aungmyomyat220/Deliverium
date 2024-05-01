@@ -11,11 +11,13 @@ import lombok.Data;
 @Data
 @Table(name = "product")
 public class ProductModel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String productName;
-    private String price;
-    private String productType;
-    private int deleteFlg;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  private String productName;
+  private String price;
+  private String productType;
+  private int deleteFlg;
 }

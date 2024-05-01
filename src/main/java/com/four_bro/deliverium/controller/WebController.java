@@ -217,10 +217,14 @@ public class WebController {
   @GetMapping("/user_home")
   public String user_home(HttpServletRequest request, Model model) {
     HttpSession session = request.getSession(false);
-    if (session != null && session.getAttribute("AUTH_CHECK") != null) {
+    if (
+      session != null &&
+      session.getAttribute("AUTH_CHECK") != null &&
+      session.getAttribute("USER_ROLE") == "user"
+    ) {
       session.getAttribute("AUTH_CHECK");
       return "client_side/home";
     }
-    return "client_side/home";
+    return "error/404";
   }
 }

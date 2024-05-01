@@ -1,7 +1,9 @@
 package com.four_bro.deliverium.controller;
 
+import com.four_bro.deliverium.model.ProductModel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -225,6 +227,6 @@ public class WebController {
       session.getAttribute("AUTH_CHECK");
       return "client_side/home";
     }
-    return "error/404";
+    return "auth/login";
   }
 }

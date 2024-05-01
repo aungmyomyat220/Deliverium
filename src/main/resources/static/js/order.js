@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("#order_table").DataTable({
       ajax: {
-        url: "/orderlist",
+        url: "/getAllOrders",
         dataSrc: "",
       },
       columns: [
@@ -11,29 +11,25 @@ $(document).ready(function () {
             return meta.row + 1;
           }
         },
+        { data: "productName"},
         { data: "username" },
         { data: "email" },
-        {
-          data: "role",
-          render: function (data, type, row) {
-            return data == 0 ? "admin" : "user";
-          },
-        },
+        { data: "quantity"},
         {
           data: "status",
-          render: function (data, type, row) {
-              return data == 0 ? '<i class="bi bi-slash-circle-fill text-danger"></i>' : '<i class="bi bi-check-circle-fill text-success"></i>';
+          render: function(data, type, row) {
+              return data == "0" ? '<i class="bi bi-hourglass-split"></i>' : '<i class="bi bi-patch-check-fill text-success"></i>';
           },
-        },
+      },
+      
         {
           data: "status",
           render: function (data, type, row) {
             return (
-              '<button type="button" class="btn ' + (data == 1 ? " btn-danger ban-button" : " btn-primary active-button") + '" data-id="' +
-              row.id +
-              '">' +
-              (data == 1 ? "Ban" : "Activate") +
-              "</button>"
+              data === "0" ?
+              '<div><i class="bi bi-check-circle big-icon text-success mr-3"></i><i class="bi bi-x-circle-fill big-icon text-danger"></i></div>'
+              :
+              '<button type="button" class="btn btn-secondary" disabled>Approved</button>'
             );
           },
         },

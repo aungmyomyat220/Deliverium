@@ -227,6 +227,14 @@ public class WebController {
       session.getAttribute("AUTH_CHECK");
       return "client_side/home";
     }
+    if (
+      session != null &&
+      session.getAttribute("AUTH_CHECK") != null &&
+      session.getAttribute("USER_ROLE") == "admin"
+    ) {
+      session.getAttribute("AUTH_CHECK");
+      return "error/404";
+    }
     return "auth/login";
   }
 }

@@ -63,7 +63,7 @@ $(document).ready(function () {
     if (status == "ban") {
       var text = "Decline this order?";
       var buttonName = "Decline";
-      var order_status = 0;
+      var order_status = 2;
       var title = "Order Declined"
     } else {
       var text = "Confirm this order?";
@@ -89,15 +89,6 @@ $(document).ready(function () {
             msgBody: emailBody,
             subject:emailSubject
           }),
-          success: function (response) {
-            Swal.fire({
-              title: title,
-              icon: "success",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            $("#order_table").DataTable().ajax.reload();
-          },
         });
         $.ajax({
           url: "/change_order_status",
@@ -109,12 +100,12 @@ $(document).ready(function () {
           }),
           success: function (response) {
             Swal.fire({
-              title: 'Process Success',
+              title: title,
               icon: 'success',
               showConfirmButton: false,
               timer: 2000,
           }); 
-            $('#user_table').DataTable().ajax.reload();
+            $('#order_table').DataTable().ajax.reload();
           },
         });
       }

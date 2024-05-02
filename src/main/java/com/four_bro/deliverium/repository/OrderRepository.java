@@ -4,11 +4,9 @@ import com.four_bro.deliverium.model.OrderModel;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@EnableJpaRepositories
 public interface OrderRepository extends JpaRepository<OrderModel, Integer> {
   @Query(
     nativeQuery = true,

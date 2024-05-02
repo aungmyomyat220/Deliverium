@@ -18,16 +18,15 @@ $(document).ready(function () {
       {
         data: "status",
         render: function (data, type, row) {
-          return data == "0"
+          return data == 0
             ? '<i class="bi bi-hourglass-split"></i>'
-            : '<i class="bi bi-patch-check-fill text-success"></i>';
+            : '<div>' + (data == 1 ? '<i class="bi bi-patch-check-fill text-success"></i>' : '<i class="bi bi-ban-fill text-danger"></i>') + '</div>';
         },
       },
-
       {
         data: "status",
         render: function (data, type, row) {
-          return data === "0"
+          return data === 0
             ? '<div><i class="bi bi-check-circle big-icon text-success mr-3 accept-button" data-id="' +
                 row.id +
                 '" data-email="' +
@@ -37,7 +36,7 @@ $(document).ready(function () {
                 '" data-email="' +
                 row.email +
                 '"></i></div>'
-            : '<button type="button" class="btn btn-secondary" disabled>Approved</button>';
+            : '<div>' + (data == 1 ? '<button type="button" class="btn btn-secondary" disabled>Approved</button>' : '<button type="button" class="btn btn-danger" disabled>Declined</button>') + '</div>';
         },
       },
     ],
@@ -64,12 +63,12 @@ $(document).ready(function () {
     if (status == "ban") {
       var text = "Decline this order?";
       var buttonName = "Decline";
-      var status = 0;
+      var order_status = 0;
       var title = "Order Declined"
     } else {
       var text = "Confirm this order?";
       var buttonName = "Confirm";
-      var status = 1;
+      var order_status = 1;
       var title = "Order Confirmed"
     }
     Swal.fire({
@@ -98,6 +97,24 @@ $(document).ready(function () {
               timer: 2000,
             });
             $("#order_table").DataTable().ajax.reload();
+          },
+        });
+        $.ajax({
+          url: "/change_order_status",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            id: id,
+            status : order_status,
+          }),
+          success: function (response) {
+            Swal.fire({
+              title: 'Process Success',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 2000,
+          }); 
+            $('#user_table').DataTable().ajax.reload();
           },
         });
       }

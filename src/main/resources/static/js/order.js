@@ -1,90 +1,106 @@
 $(document).ready(function () {
-    $("#order_table").DataTable({
-      ajax: {
-        url: "/getAllOrders",
-        dataSrc: "",
-      },
-      columns: [
-        {
-          data: "id",
-          render: function(data, type, row, meta) {
-            return meta.row + 1;
-          }
+  $("#order_table").DataTable({
+    ajax: {
+      url: "/getAllOrders",
+      dataSrc: "",
+    },
+    columns: [
+      {
+        data: "id",
+        render: function (data, type, row, meta) {
+          return meta.row + 1;
         },
-        { data: "productName"},
-        { data: "username" },
-        { data: "email" },
-        { data: "quantity"},
-        {
-          data: "status",
-          render: function(data, type, row) {
-              return data == "0" ? '<i class="bi bi-hourglass-split"></i>' : '<i class="bi bi-patch-check-fill text-success"></i>';
-          },
       },
-      
-        {
-          data: "status",
-          render: function (data, type, row) {
-            return (
-              data === "0" ?
-              '<div><i class="bi bi-check-circle big-icon text-success mr-3"></i><i class="bi bi-x-circle-fill big-icon text-danger"></i></div>'
-              :
-              '<button type="button" class="btn btn-secondary" disabled>Approved</button>'
-            );
-          },
+      { data: "productName" },
+      { data: "username" },
+      { data: "email" },
+      { data: "quantity" },
+      {
+        data: "status",
+        render: function (data, type, row) {
+          return data == "0"
+            ? '<i class="bi bi-hourglass-split"></i>'
+            : '<i class="bi bi-patch-check-fill text-success"></i>';
         },
-      ],
-    });
-    // Handle click events on ban button
-    $("#user_table").on("click", ".ban-button", function () {
-      var id = $(this).data("id");
-      showDialogBox(id, "ban");
-    });
-  
-    // Handle click events on activate button
-    $("#user_table").on("click", ".active-button", function () {
-      var id = $(this).data("id");
-      showDialogBox(id, "active");
-    });
-  
-    function showDialogBox(id, status) {
-      if (status == "ban") {
-        var text = "Do you want to Ban?"
-        var buttonName = "Ban"
-        var status = 0
-      } else {
-        var text = "Do you want to Activate?"
-        var buttonName = "Activate"
-        var status = 1
-      }
-      Swal.fire({
-        title: 'Are you sure?',
-        text: text,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: buttonName
-      }).then((result) => {
-          if (result.isConfirmed) {
-            $.ajax({
-              url: "/change_status",
-              type: "POST",
-              contentType: "application/json",
-              data: JSON.stringify({
-                id: id,
-                status : status,
-              }),
-              success: function (response) {
-                Swal.fire({
-                  title: 'Process Success',
-                  icon: 'success',
-                  showConfirmButton: false,
-                  timer: 2000,
-              }); 
-                $('#user_table').DataTable().ajax.reload();
-              },
-            });
-          }
-      });
-    }
+      },
+
+      {
+        data: "status",
+        render: function (data, type, row) {
+          return data === "0"
+            ? '<div><i class="bi bi-check-circle big-icon text-success mr-3 accept-button" data-id="' +
+                row.id +
+                '" data-email="' +
+                row.email +
+                '"></i><i class="bi bi-x-circle-fill big-icon text-danger decline-button" data-id="' +
+                row.id +
+                '" data-email="' +
+                row.email +
+                '"></i></div>'
+            : '<button type="button" class="btn btn-secondary" disabled>Approved</button>';
+        },
+      },
+    ],
   });
+  // Handle click events on ban button
+  $("#order_table").on("click", ".decline-button", function () {
+    var id = $(this).data("id");
+    var email = $(this).data("email");
+    var emailSubject = "Order Declined"
+    var emailBody = "Sorry,Your Order is Declined.This item is out of Stock"
+    showDialogBox(id, "ban", email,emailBody,emailSubject);
+  });
+
+  // Handle click events on activate button
+  $("#order_table").on("click", ".accept-button", function () {
+    var id = $(this).data("id");
+    var email = $(this).data("email");
+    var emailSubject = "Order Confirmed"
+    var emailBody = "Your Order is confirmed.Sender will contact you soon"
+    showDialogBox(id, "active", email,emailBody,emailSubject);
+  });
+
+  function showDialogBox(id, status,email,emailBody,emailSubject) {
+    if (status == "ban") {
+      var text = "Decline this order?";
+      var buttonName = "Decline";
+      var status = 0;
+      var title = "Order Declined"
+    } else {
+      var text = "Confirm this order?";
+      var buttonName = "Confirm";
+      var status = 1;
+      var title = "Order Confirmed"
+    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: text,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: buttonName,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/sendMail",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            recipient:email,
+            msgBody: emailBody,
+            subject:emailSubject
+          }),
+          success: function (response) {
+            Swal.fire({
+              title: title,
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            $("#order_table").DataTable().ajax.reload();
+          },
+        });
+      }
+    });
+  }
+});

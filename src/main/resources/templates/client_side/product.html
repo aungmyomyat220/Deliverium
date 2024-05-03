@@ -13,9 +13,96 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* CSS to increase icon size */
+        .big-icon {
+            font-size: 30px;
+        }
+
+        .big-font {
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
 
 </head>
-<body>
-    
+
+<body class="p-5 h-100 w-100">
+    <div id="result_page" class="px-5 row">
+        
+    </div>
+
+    <!-- <div class="counter">
+        <span class="icon" onclick="decreaseCount()"><i class="bi bi-dash-circle-fill big-icon"></i></span>
+        <span id="count" class="big-font px-2">0</span>
+        <span class="icon" onclick="increaseCount()"><i class="bi bi-plus-circle-fill big-icon"></i></span>
+    </div> -->
+    <script>
+        let count = 0;
+        const countElement = document.getElementById("count");
+        function increaseCount() {
+            count++;
+            countElement.textContent = count;
+        }
+
+        function decreaseCount() {
+            if (count > 0) {
+                count--;
+                countElement.textContent = count;
+            }
+        }
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+        $.ajax({
+            url: "/get_one_product?id=" + id,
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                const productHtml = `
+                <div class="col-3">
+                    <h1 class="pb-3 ">Product Details</h1>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIoel7Bu4syRn8IWLhUTtN0G25IeyMtCGVfQ&s" alt="productiamge" class="h-100 w-100 "/>
+                </div>
+                <div class="col-8 pt-5 ">
+                    <div class="pb-4">
+                        <h3>Product Name</h3>
+                        <h5>${response.productName}</h5>
+                    </div>
+                    
+                    <div class="pb-4">
+                        <h3>Product Type</h3>
+                        <h5>${response.productType}</h5>
+                    </div>
+                    <div class="pb-4">
+                        <h3>Product Price</h3>
+                        <h5>${response.price}</h5>
+                    </div>
+                    <div class="counter">
+                        <span class="icon" onclick="function() { decreaseCount(); }"><i class="bi bi-dash-circle-fill big-icon"></i></span>
+                        <span id="count" class="big-font px-2">0</span>
+                        <span class="icon" onclick="function() { increaseCount(); }"><i class="bi bi-plus-circle-fill big-icon"></i></span>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg ">Buy</button>
+                `
+                $("#result_page").append(productHtml)
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            } 
+        });
+
+
+        
+
+        
+    </script>
+
 </body>
+
 </html>

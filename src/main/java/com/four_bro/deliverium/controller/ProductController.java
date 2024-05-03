@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -58,7 +59,6 @@ public class ProductController {
 
   @PostMapping(value = "/edit_product")
   public String editProductData(@RequestBody ProductModel request) {
-    log.info("***********************Workkkkkkkkk*************************");
     String msg = productService.editProduct(request);
     return msg;
   }
@@ -67,5 +67,12 @@ public class ProductController {
   public String deleteProductData(@RequestBody ProductModel request) {
     String msg = productService.deleteProduct(request);
     return msg;
+  }
+
+  @GetMapping(value = "/get_one_product")
+  public ProductModel getOneProduct(@RequestParam ProductModel id) {
+    log.info("Id" + id);
+    ProductModel product = productService.getOneProduct(id);
+    return product;
   }
 }

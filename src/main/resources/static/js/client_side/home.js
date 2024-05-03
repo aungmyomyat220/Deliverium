@@ -12,10 +12,10 @@ $(document).ready(function () {
 
         var productHTML = `
                 <div class="col-4">
-                    <a href="product_page">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIoel7Bu4syRn8IWLhUTtN0G25IeyMtCGVfQ&s" alt="${
-                      product.productName
-                      }" />
+                    <a href="product_page?id=${product.id}">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIoel7Bu4syRn8IWLhUTtN0G25IeyMtCGVfQ&s" alt="${
+                        product.productName
+                        }" />
                     </a>
                     
                     <h3>${product.productName}</h3>

@@ -25,9 +25,8 @@ public class ProductController {
 
   @GetMapping("/productlist")
   public List<ProductModel> allProducts(
-    HttpServletRequest request,
-    Model model
-  ) {
+      HttpServletRequest request,
+      Model model) {
     List<ProductModel> data = productService.getAllProducts();
     return data;
   }
@@ -40,8 +39,7 @@ public class ProductController {
 
   @PostMapping(value = "/get_product")
   public Optional<ProductModel> editProductData(
-    @RequestBody Map<String, Object> param
-  ) {
+      @RequestBody Map<String, Object> param) {
     String productIdStr = (String) param.get("productId");
     if (productIdStr == null) {
       return Optional.empty();
@@ -49,8 +47,7 @@ public class ProductController {
     try {
       Integer productId = Integer.valueOf(productIdStr);
       Optional<ProductModel> data = productService.getAllProductsById(
-        productId
-      );
+          productId);
       return data;
     } catch (NumberFormatException e) {
       return Optional.empty();
@@ -75,4 +72,5 @@ public class ProductController {
     ProductModel product = productService.getOneProduct(id);
     return product;
   }
+
 }

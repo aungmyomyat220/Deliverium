@@ -40,4 +40,9 @@ public class OrderService {
       return "Order not found";
     }
   }
+
+  public String orderCreate(Integer productId, Integer userId, Integer count) {
+    orderRepository.orderCreate(productId, userId, count);
+    return "Order Created Successfully";
+  }
 }

@@ -23,10 +23,9 @@ public class AuthController {
 
   @PostMapping("/login")
   public UserModel login(
-    @RequestBody Map<String, Object> param,
-    HttpServletRequest request,
-    Model model
-  ) {
+      @RequestBody Map<String, Object> param,
+      HttpServletRequest request,
+      Model model) {
     String username = (String) param.get("username");
     String password = (String) param.get("password");
 
@@ -36,6 +35,7 @@ public class AuthController {
       HttpSession session = request.getSession();
       session.setAttribute("AUTH_CHECK", uuid);
       session.setAttribute("USER_NAME", username);
+      session.setAttribute("USER_ID", loginUser.getId());
       if (loginUser.getRole() == 0) {
         session.setAttribute("USER_ROLE", "admin");
       } else if (loginUser.getRole() == 1 && loginUser.getStatus() != 0) {

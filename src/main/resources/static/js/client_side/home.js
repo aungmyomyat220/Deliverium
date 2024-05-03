@@ -5,18 +5,19 @@ $(document).ready(function () {
     dataType: "json",
     success: function (response) {
       console.log("Response", response);
-      // Loop through each product in the response
       response.forEach(function (product, index) {
-        // If it's the first product or a multiple of 3, start a new row
         if (index % 3 === 0) {
           $(".product_container").append('<div class="row"></div>');
         }
 
         var productHTML = `
                 <div class="col-4">
-                    <img src="https://i.ibb.co/KsMVr26/product-3.jpg" alt="${
-                    product.productName
-                    }" />
+                    <a href="product_page">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIoel7Bu4syRn8IWLhUTtN0G25IeyMtCGVfQ&s" alt="${
+                      product.productName
+                      }" />
+                    </a>
+                    
                     <h3>${product.productName}</h3>
                     <p>${product.productType}</p>
                     <p>${product.price} Kyats</p>

@@ -237,4 +237,26 @@ public class WebController {
     }
     return "auth/login";
   }
+
+  @GetMapping("/product_page")
+  public String product_page(HttpServletRequest request, Model model) {
+    HttpSession session = request.getSession(false);
+    if (
+      session != null &&
+      session.getAttribute("AUTH_CHECK") != null &&
+      session.getAttribute("USER_ROLE") == "user"
+    ) {
+      session.getAttribute("AUTH_CHECK");
+      return "client_side/product";
+    }
+    if (
+      session != null &&
+      session.getAttribute("AUTH_CHECK") != null &&
+      session.getAttribute("USER_ROLE") == "admin"
+    ) {
+      session.getAttribute("AUTH_CHECK");
+      return "error/404";
+    }
+    return "auth/login";
+  }
 }

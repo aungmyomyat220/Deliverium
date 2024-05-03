@@ -38,7 +38,7 @@ public class AuthController {
       session.setAttribute("USER_NAME", username);
       if (loginUser.getRole() == 0) {
         session.setAttribute("USER_ROLE", "admin");
-      } else if (loginUser.getRole() == 1) {
+      } else if (loginUser.getRole() == 1 && loginUser.getStatus() != 0) {
         session.setAttribute("USER_ROLE", "user");
       }
       return loginUser;

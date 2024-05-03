@@ -24,6 +24,14 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @PostMapping("/register_user")
+  public String UserRegister(@RequestBody  UserModel request) {
+    log.info("status*****************");
+    String msg = userService.saveUser(request);
+    return msg;
+  }
+  
+
   @GetMapping(value = "/userlist")
   public List<UserModel> allUsers(HttpServletRequest request, Model model) {
     List<UserModel> data = userService.getAllUsersbyStatus();

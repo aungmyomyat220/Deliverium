@@ -1,9 +1,7 @@
 package com.four_bro.deliverium.controller;
 
-import com.four_bro.deliverium.model.ProductModel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +36,12 @@ public class WebController {
     }
     return "auth/login";
   }
+
+  @GetMapping("/user/create")
+  public String registerUser(HttpServletRequest request, Model model) {
+      return "users/registeration";
+  }
+
 
   @GetMapping("/dashboard")
   public String home(HttpServletRequest request, Model model) {
